@@ -18,6 +18,14 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
 -- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
--- NOTE(patrik): Trouble keymap
-vim.keymap.set('n', '<leader>tt', function() require("trouble").toggle() end, { desc = "Toggle Trouble" })
-vim.keymap.set('n', '<leader>to', function() require("trouble").open() end, { desc = "Open Trouble" })
+vim.keymap.set('n', '<leader>ff', function() require("telescope.builtin").find_files() end, {})
+vim.keymap.set('n', '<leader>bb', function() require("telescope.builtin").buffers() end, {})
+vim.keymap.set('n', '<leader>ht', function() require("telescope.builtin").help_tags() end, {})
+
+
+vim.keymap.set('n', '<leader>gg', function() Snacks.lazygit() end, { desc = "Open Lazygit" })
+
+vim.keymap.set('n', '<leader>e', function() Snacks.explorer() end, { desc = "Open file explorer" })
+
+vim.keymap.set('n', '<leader>zz', function() Snacks.zen.zoom() end, { desc = "Zoom" })
+vim.keymap.set('n', '<leader>nh', function() Snacks.notifier.show_history() end, { desc = "Open notification history" })

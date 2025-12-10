@@ -1,0 +1,210 @@
+*cheatsheet.txt*
+
+================================================================================
+
+CONTENTS                                               *vim-cheatsheet-contents*
+
+    1. Mode Switching ..................... |vim-modes|
+    2. Navigation ......................... |vim-navigation|
+    3. Editing ............................ |vim-editing|
+    4. Search & Replace ................... |vim-search|
+    5. File Operations .................... |vim-files|
+
+================================================================================
+1. MODE SWITCHING                                                   *vim-modes*
+
+    i               Enter Insert mode at cursor
+    I               Insert at beginning of line
+    a               Append after cursor
+    A               Append at end of line
+    o               Open new line below and enter Insert mode
+    O               Open new line above and enter Insert mode
+    
+    v               Enter Visual mode (character selection)
+    V               Enter Visual Line mode (line selection)
+    Ctrl-v          Enter Visual Block mode (block selection)
+    
+    Esc             Exit to Normal mode
+    Ctrl-[          Alternative to exit to Normal mode
+    
+    :               Enter Command-line mode
+
+================================================================================
+2. NAVIGATION                                                  *vim-navigation*
+
+Basic Movement ~
+    h               Move left
+    j               Move down
+    k               Move up
+    l               Move right
+
+Word Movement ~
+    w               Jump forward to start of word
+    W               Jump forward to start of WORD (ignore punctuation)
+    b               Jump backward to start of word
+    B               Jump backward to start of WORD (ignore punctuation)
+    e               Jump forward to end of word
+    E               Jump forward to end of WORD (ignore punctuation)
+
+Line Movement ~
+    0               Jump to start of line
+    ^               Jump to first non-blank character of line
+    $               Jump to end of line
+    g_              Jump to last non-blank character of line
+
+File Movement ~
+    gg              Go to first line of file
+    G               Go to last line of file
+    :n              Go to line n (e.g., :42)
+    nG              Go to line n (e.g., 42G)
+    
+    Ctrl-f          Page down (forward)
+    Ctrl-b          Page up (backward)
+    Ctrl-d          Half page down
+    Ctrl-u          Half page up
+    
+    H               Move to top of screen (High)
+    M               Move to middle of screen (Middle)
+    L               Move to bottom of screen (Low)
+
+Other Navigation ~
+    %               Jump to matching bracket/parenthesis
+    *               Search forward for word under cursor
+    #               Search backward for word under cursor
+    f{char}         Jump forward to next occurrence of {char} on line
+    F{char}         Jump backward to previous occurrence of {char} on line
+    t{char}         Jump forward to before next occurrence of {char}
+    T{char}         Jump backward to after previous occurrence of {char}
+    ;               Repeat last f, F, t, or T command
+    ,               Repeat last f, F, t, or T command in opposite direction
+
+================================================================================
+3. EDITING                                                        *vim-editing*
+
+Deleting ~
+    x               Delete character under cursor
+    X               Delete character before cursor
+    dd              Delete (cut) entire line
+    D               Delete from cursor to end of line
+    dw              Delete word from cursor
+    db              Delete word backward
+    d$              Delete to end of line
+    d0              Delete to beginning of line
+    dG              Delete to end of file
+    dgg             Delete to beginning of file
+
+Copying (Yanking) ~
+    yy              Yank (copy) entire line
+    Y               Yank entire line (same as yy)
+    yw              Yank word
+    y$              Yank to end of line
+    yG              Yank to end of file
+    ygg             Yank to beginning of file
+
+Pasting ~
+    p               Paste after cursor/below line
+    P               Paste before cursor/above line
+
+Changing ~
+    cc              Change (delete and enter Insert mode) entire line
+    C               Change from cursor to end of line
+    cw              Change word
+    c$              Change to end of line
+    ciw             Change inner word
+    ci"             Change text inside quotes
+    ci(             Change text inside parentheses
+    ci{             Change text inside braces
+
+Undo/Redo ~
+    u               Undo last change
+    Ctrl-r          Redo (undo the undo)
+    U               Undo all changes on line
+
+Other Editing ~
+    r{char}         Replace character under cursor with {char}
+    R               Enter Replace mode (overwrite characters)
+    ~               Toggle case of character under cursor
+    J               Join line below to current line with space
+    gJ              Join line below to current line without space
+    .               Repeat last change
+    >>              Indent line
+    <<              Unindent line
+    ==              Auto-indent line
+
+================================================================================
+4. SEARCH & REPLACE                                                *vim-search*
+
+Searching ~
+    /{pattern}      Search forward for {pattern}
+    ?{pattern}      Search backward for {pattern}
+    n               Jump to next match
+    N               Jump to previous match
+    *               Search forward for word under cursor
+    #               Search backward for word under cursor
+
+Search Options ~
+    /pattern/i      Case-insensitive search
+    /pattern/c      Case-sensitive search
+    :set hlsearch   Highlight search results
+    :set nohlsearch Turn off search highlighting
+    :noh            Clear search highlighting (temporarily)
+
+Replacing ~
+    :s/old/new/         Replace first occurrence on current line
+    :s/old/new/g        Replace all occurrences on current line
+    :%s/old/new/g       Replace all occurrences in file
+    :%s/old/new/gc      Replace all with confirmation
+    :5,12s/old/new/g    Replace in lines 5-12
+    :'<,'>s/old/new/g   Replace in visual selection
+
+================================================================================
+5. FILE OPERATIONS                                                  *vim-files*
+
+Basic Operations ~
+    :w              Write (save) file
+    :w filename     Save as filename
+    :q              Quit (fails if unsaved changes)
+    :q!             Quit without saving changes
+    :wq             Write and quit
+    :x              Write and quit (only writes if changes made)
+    ZZ              Write and quit (Normal mode shortcut)
+    ZQ              Quit without saving (Normal mode shortcut)
+
+Multiple Files ~
+    :e filename     Edit (open) a file
+    :bn             Go to next buffer
+    :bp             Go to previous buffer
+    :bd             Delete (close) current buffer
+    :ls             List all buffers
+    :b n            Go to buffer number n
+
+Windows ~
+    :sp filename    Split window horizontally
+    :vsp filename   Split window vertically
+    Ctrl-w s        Split window horizontally
+    Ctrl-w v        Split window vertically
+    Ctrl-w w        Switch between windows
+    Ctrl-w q        Quit current window
+    Ctrl-w h/j/k/l  Move to window (left/down/up/right)
+
+================================================================================
+TIPS & TRICKS                                                *vim-cheatsheet-tips*
+
+• Most commands can be prefixed with a number to repeat them
+  Example: 3dd deletes 3 lines, 5w moves forward 5 words
+
+• Combine operators with motions for powerful editing
+  Examples: d3w (delete 3 words), y2j (yank current and 2 lines below)
+
+• Use '.' to repeat your last change - it's incredibly powerful
+
+• Visual mode selection can be combined with any operator
+  Example: Select with v, then press d to delete
+
+• Use marks to jump around: ma to set mark 'a', 'a to jump to it
+
+• Use registers for advanced copy/paste: "ayy to yank to register a,
+  "ap to paste from register a
+
+================================================================================
+vim:tw=80:ts=4:ft=help:norl:

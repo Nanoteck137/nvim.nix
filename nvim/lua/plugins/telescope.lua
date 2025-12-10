@@ -25,11 +25,3 @@ require("telescope").setup({
 })
 
 require('telescope').load_extension('fzf')
-
-vim.keymap.set('n', '<leader>ff', function() require("telescope.builtin").find_files() end, {})
-vim.keymap.set('n', '<leader>bb', function() require("telescope.builtin").buffers() end, {})
-vim.keymap.set('n', '<leader>ht', function() require("telescope.builtin").help_tags() end, {})
-
-vim.api.nvim_create_user_command("Help", function()
-  require("telescope.builtin").help_tags()
-end, { desc = "Delete the current buffer" })

@@ -19,16 +19,16 @@
         neovim-unwrapped = pkgs.neovim-unwrapped;
 
         plugins = let 
-          harpoon = pkgs.vimUtils.buildVimPlugin {
-            name = "harpoon";
-            doCheck = false;
-            src = pkgs.fetchFromGitHub {
-              owner = "ThePrimeagen";
-              repo = "harpoon";
-              rev = "a84ab829eaf3678b586609888ef52f7779102263";
-              hash = "sha256-PjB64kdmoCD7JfUB7Qz9n34hk0h2/ZZRlN8Jv2Z9HT8=";
-            };
-          };
+          # harpoon = pkgs.vimUtils.buildVimPlugin {
+          #   name = "harpoon";
+          #   doCheck = false;
+          #   src = pkgs.fetchFromGitHub {
+          #     owner = "ThePrimeagen";
+          #     repo = "harpoon";
+          #     rev = "a84ab829eaf3678b586609888ef52f7779102263";
+          #     hash = "sha256-PjB64kdmoCD7JfUB7Qz9n34hk0h2/ZZRlN8Jv2Z9HT8=";
+          #   };
+          # };
         in with pkgs; [
           vimPlugins.nvim-web-devicons
           vimPlugins.tokyonight-nvim
@@ -91,22 +91,27 @@
           plugins = normalizedPlugins;
         };
 
-        nvimRtpSrc = let
-          src = ./nvim;
-        in
-          lib.cleanSourceWith {
-            inherit src;
-            name = "nvim-rtp-src";
-            filter = path: tyoe: let
-              srcPrefix = toString src + "/";
-              relPath = lib.removePrefix srcPrefix (toString path);
-            in
-              lib.all (regex: builtins.match regex relPath == null) ignoreConfigRegexes;
-          };
+        # nvimRtpSrc = let
+        #   src = ./nvim;
+        # in
+        #   lib.cleanSourceWith {
+        #     inherit src;
+        #     name = "nvim-rtp-src";
+        #     filter = path: tyoe: let
+        #       srcPrefix = toString src + "/";
+        #       relPath = lib.removePrefix srcPrefix (toString path);
+        #     in
+        #       lib.all (regex: builtins.match regex relPath == null) ignoreConfigRegexes;
+        #   };
 
         nvimRtp = pkgs.stdenv.mkDerivation {
           name = "nvim-rtp";
-          src = nvimRtpSrc;
+          src = ./nvim;
+
+          forceShare = [
+            "man"
+            "info"
+          ];
 
           buildPhase = ''
             mkdir -p $out/nvim
@@ -116,6 +121,12 @@
           installPhase = ''
             if [ -d "lua" ]; then
                 cp -r lua $out/lua
+                rm -rf lua
+            fi
+
+            if [ -d "doc" ]; then
+                cp -r doc $out/doc
+                rm -rf doc
             fi
 
             if [ -d "after" ]; then
@@ -128,16 +139,19 @@
           '';
         };
 
+
+        configPlugin = pkgs.vimUtils.buildVimPlugin {
+          pname = "config";
+          version = "0.0.0";
+          src = ./nvim;
+          doCheck = false;
+        };
+
         initLua =
           ''
-            -- prepend lua directory
-            vim.opt.rtp:prepend('${nvimRtp}/lua')
+            vim.opt.rtp:prepend('${configPlugin}')
           ''
           + (builtins.readFile ./nvim/init.lua)
-          + ''
-            vim.opt.rtp:prepend('${nvimRtp}/nvim')
-            vim.opt.rtp:prepend('${nvimRtp}/after')
-          '';
 
         extraMakeWrapperArgs = builtins.concatStringsSep " " (
           (lib.optional (externalPackages != [])
