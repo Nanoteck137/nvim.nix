@@ -151,7 +151,7 @@
           ''
             vim.opt.rtp:prepend('${configPlugin}')
           ''
-          + (builtins.readFile ./nvim/init.lua)
+          + (builtins.readFile ./nvim/init.lua);
 
         extraMakeWrapperArgs = builtins.concatStringsSep " " (
           (lib.optional (externalPackages != [])
