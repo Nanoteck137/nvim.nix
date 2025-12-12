@@ -13,19 +13,18 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
 
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
--- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
-vim.keymap.set('n', '<leader>ff', function() require("telescope.builtin").find_files() end, {})
-vim.keymap.set('n', '<leader>bb', function() require("telescope.builtin").buffers() end, {})
-vim.keymap.set('n', '<leader>ht', function() require("telescope.builtin").help_tags() end, {})
-
+vim.keymap.set('n', '<leader>ff', require("telescope.builtin").find_files, {})
+vim.keymap.set('n', '<leader>bb', require("telescope.builtin").buffers, {})
+-- vim.keymap.set('n', '<leader>ht', require("telescope.builtin").help_tags, {})
 
 vim.keymap.set('n', '<leader>gg', function() Snacks.lazygit() end, { desc = "Open Lazygit" })
 
-vim.keymap.set('n', '<leader>e', function() Snacks.explorer() end, { desc = "Open file explorer" })
+vim.keymap.set('n', '<leader>p', function() Snacks.explorer() end, { desc = "Open file explorer" })
 
 vim.keymap.set('n', '<leader>zz', function() Snacks.zen.zoom() end, { desc = "Zoom" })
 vim.keymap.set('n', '<leader>nh', function() Snacks.notifier.show_history() end, { desc = "Open notification history" })
