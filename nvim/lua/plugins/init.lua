@@ -40,24 +40,4 @@ require("oil").setup({})
 
 require("grapple").setup({})
 
-vim.keymap.set('n', '<leader>tt', '<cmd>Grapple toggle<cr>')
-vim.keymap.set('n', '<leader>te', '<cmd>Grapple toggle_tags<cr>')
-
-vim.keymap.set('n', '<leader>1', '<cmd>Grapple select index=1<cr>')
-vim.keymap.set('n', '<leader>2', '<cmd>Grapple select index=2<cr>')
-vim.keymap.set('n', '<leader>3', '<cmd>Grapple select index=3<cr>')
-vim.keymap.set('n', '<leader>4', '<cmd>Grapple select index=4<cr>')
-vim.keymap.set('n', '<leader>5', '<cmd>Grapple select index=5<cr>')
-vim.keymap.set('n', '<leader>6', '<cmd>Grapple select index=6<cr>')
-vim.keymap.set('n', '<leader>7', '<cmd>Grapple select index=7<cr>')
-vim.keymap.set('n', '<leader>8', '<cmd>Grapple select index=8<cr>')
-vim.keymap.set('n', '<leader>9', '<cmd>Grapple select index=9<cr>')
-
-vim.keymap.set('n', '<leader>tn', '<cmd>Grapple cycle_tags next<cr>')
-vim.keymap.set('n', '<leader>tp', '<cmd>Grapple cycle_tags prev<cr>')
-
-
--- -- NOTE(patrik): Trouble keymap
--- vim.keymap.set('n', '<leader>tt', function() require("trouble").toggle() end, { desc = "Toggle Trouble" })
--- vim.keymap.set('n', '<leader>to', function() require("trouble").open() end, { desc = "Open Trouble" })
 
