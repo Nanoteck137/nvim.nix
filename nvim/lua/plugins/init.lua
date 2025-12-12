@@ -40,4 +40,6 @@ require("oil").setup({})
 
 require("grapple").setup({})
 
+require("trouble").setup({})
+
 
