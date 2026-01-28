@@ -49,9 +49,3 @@ vim.diagnostic.config {
     severity = vim.diagnostic.severity.ERROR,
   }
 }
-
-vim.cmd([[
-set conceallevel=2
-syn match NBSP '\%xa0' conceal cchar=␣
-syn match NarrowNBSP '\%u202F' conceal cchar=⸤
-]])
