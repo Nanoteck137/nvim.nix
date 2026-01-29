@@ -14,5 +14,11 @@ require("snacks").setup({
     },
   },
 
+  picker = {
+    ui_select = true,
+  },
+
+  input = {},
+
   notifier = {},
 })

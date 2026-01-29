@@ -25,16 +25,40 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Toggle Trouble Diagnostics' })
 -- vim.keymap.set('n', '<leader>', function() require('trouble').open() end, { desc = 'Open Trouble' })
 
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = 'Find Files' })
-vim.keymap.set('n', '<leader>bb', require('telescope.builtin').buffers, { desc = 'Find Buffers' })
--- vim.keymap.set('n', '<leader>ht', require('telescope.builtin').help_tags, {})
+-- vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = 'Find Files' })
+-- vim.keymap.set('n', '<leader>bb', require('telescope.builtin').buffers, { desc = 'Find Buffers' })
+vim.keymap.set('n', '<leader>ff', function()
+  Snacks.picker.files({
+    preview = nil,
+    layout = {
+      preset = "dropdown",
+      hidden = { "preview" },
+      layout = {
+        height = 0.5,
+      },
+    },
+  })
+end, { desc = 'Find Files' })
+
+vim.keymap.set('n', '<leader>bb', function()
+  Snacks.picker.buffers({
+    win = {
+      input = {
+        keys = {
+          ["dd"] = { "bufdelete", mode = { "n" } },
+        },
+      },
+    },
+  })
+end, { desc = 'Find Buffers' })
+-- vim.keymap.set('n', '<leader>hh', require('telescope.builtin').help_tags, {})
 
 vim.keymap.set('n', '<leader>gg', function() Snacks.lazygit() end, { desc = 'Open Lazygit' })
 
 vim.keymap.set('n', '<leader>p', function() Snacks.explorer() end, { desc = 'Open file explorer' })
 
-vim.keymap.set('n', '<leader>zz', function() Snacks.zen.zoom() end, { desc = 'Zoom' })
-vim.keymap.set('n', '<leader>nh', function() Snacks.notifier.show_history() end, { desc = 'Open notification history' })
+-- vim.keymap.set('n', '<leader>zz', function() Snacks.zen.zoom() end, { desc = 'Zoom' })
+-- vim.keymap.set('n', '<leader>nh', function() Snacks.notifier.show_history() end, { desc = 'Open notification history' })
 
 vim.keymap.set('n', '<leader>tt', '<cmd>Grapple toggle<cr>', { desc = 'Open Grapple' })
 vim.keymap.set('n', '<leader>te', '<cmd>Grapple toggle_tags<cr>', { desc = 'Toggle File for Grapple' })
@@ -52,3 +76,57 @@ vim.keymap.set('n', '<leader>9', '<cmd>Grapple select index=9<cr>', { desc = 'Gr
 vim.keymap.set('n', '<leader>tp', '<cmd>Grapple cycle_tags prev<cr>', { desc = 'Go to previous Grapple tag' })
 vim.keymap.set('n', '<leader>tn', '<cmd>Grapple cycle_tags next<cr>', { desc = 'Go to next Grapple tag' })
 
+local actions = {
+  format = {
+    name = "Format Code",
+    run = function()
+      vim.lsp.buf.format()
+    end
+  },
+
+  help = {
+    name = "Open Help",
+    run = function()
+      -- require('telescope.builtin').help_tags()
+      Snacks.picker.help()
+    end
+  },
+
+  notification_history = {
+    name = "Open Notification history",
+    run = function()
+      Snacks.notifier.show_history()
+    end
+  },
+
+  zoom = {
+    name = "Toggle Zen-Zoom",
+    run = function()
+      Snacks.zen.zoom()
+    end
+  },
+
+  bufdel = {
+    name = "Delete current buffer",
+    run = function()
+      Snacks.bufdelete()
+    end
+  },
+}
+
+local function show_actions()
+  local items = vim.tbl_keys(actions)
+
+  vim.ui.select(items, {
+    prompt = 'Select an action:',
+    format_item = function(item)
+      return actions[item].name
+    end,
+  }, function(choice)
+    if choice ~= nil then
+      actions[choice].run()
+    end
+  end)
+end
+
+vim.keymap.set('n', '<leader>pp', show_actions)
