@@ -59,22 +59,26 @@ vim.keymap.set('n', '<leader>p', function() Snacks.explorer() end, { desc = 'Ope
 
 -- vim.keymap.set('n', '<leader>zz', function() Snacks.zen.zoom() end, { desc = 'Zoom' })
 -- vim.keymap.set('n', '<leader>nh', function() Snacks.notifier.show_history() end, { desc = 'Open notification history' })
+--
 
-vim.keymap.set('n', '<leader>tt', '<cmd>Grapple toggle<cr>', { desc = 'Open Grapple' })
-vim.keymap.set('n', '<leader>te', '<cmd>Grapple toggle_tags<cr>', { desc = 'Toggle File for Grapple' })
+vim.keymap.set('n', '<leader>tt', function() Snacks.terminal.toggle() end, { desc = 'Toggle Terminal' })
+vim.keymap.set('n', '<leader>to', function() Snacks.terminal.open() end, { desc = 'Open Terminal' })
 
-vim.keymap.set('n', '<leader>1', '<cmd>Grapple select index=1<cr>', { desc = 'Grapple select tag #1' })
-vim.keymap.set('n', '<leader>2', '<cmd>Grapple select index=2<cr>', { desc = 'Grapple select tag #2' })
-vim.keymap.set('n', '<leader>3', '<cmd>Grapple select index=3<cr>', { desc = 'Grapple select tag #3' })
-vim.keymap.set('n', '<leader>4', '<cmd>Grapple select index=4<cr>', { desc = 'Grapple select tag #4' })
-vim.keymap.set('n', '<leader>5', '<cmd>Grapple select index=5<cr>', { desc = 'Grapple select tag #5' })
-vim.keymap.set('n', '<leader>6', '<cmd>Grapple select index=6<cr>', { desc = 'Grapple select tag #6' })
-vim.keymap.set('n', '<leader>7', '<cmd>Grapple select index=7<cr>', { desc = 'Grapple select tag #7' })
-vim.keymap.set('n', '<leader>8', '<cmd>Grapple select index=8<cr>', { desc = 'Grapple select tag #8' })
-vim.keymap.set('n', '<leader>9', '<cmd>Grapple select index=9<cr>', { desc = 'Grapple select tag #9' })
-
-vim.keymap.set('n', '<leader>tp', '<cmd>Grapple cycle_tags prev<cr>', { desc = 'Go to previous Grapple tag' })
-vim.keymap.set('n', '<leader>tn', '<cmd>Grapple cycle_tags next<cr>', { desc = 'Go to next Grapple tag' })
+-- vim.keymap.set('n', '<leader>tt', '<cmd>Grapple toggle<cr>', { desc = 'Open Grapple' })
+-- vim.keymap.set('n', '<leader>te', '<cmd>Grapple toggle_tags<cr>', { desc = 'Toggle File for Grapple' })
+--
+-- vim.keymap.set('n', '<leader>1', '<cmd>Grapple select index=1<cr>', { desc = 'Grapple select tag #1' })
+-- vim.keymap.set('n', '<leader>2', '<cmd>Grapple select index=2<cr>', { desc = 'Grapple select tag #2' })
+-- vim.keymap.set('n', '<leader>3', '<cmd>Grapple select index=3<cr>', { desc = 'Grapple select tag #3' })
+-- vim.keymap.set('n', '<leader>4', '<cmd>Grapple select index=4<cr>', { desc = 'Grapple select tag #4' })
+-- vim.keymap.set('n', '<leader>5', '<cmd>Grapple select index=5<cr>', { desc = 'Grapple select tag #5' })
+-- vim.keymap.set('n', '<leader>6', '<cmd>Grapple select index=6<cr>', { desc = 'Grapple select tag #6' })
+-- vim.keymap.set('n', '<leader>7', '<cmd>Grapple select index=7<cr>', { desc = 'Grapple select tag #7' })
+-- vim.keymap.set('n', '<leader>8', '<cmd>Grapple select index=8<cr>', { desc = 'Grapple select tag #8' })
+-- vim.keymap.set('n', '<leader>9', '<cmd>Grapple select index=9<cr>', { desc = 'Grapple select tag #9' })
+--
+-- vim.keymap.set('n', '<leader>tp', '<cmd>Grapple cycle_tags prev<cr>', { desc = 'Go to previous Grapple tag' })
+-- vim.keymap.set('n', '<leader>tn', '<cmd>Grapple cycle_tags next<cr>', { desc = 'Go to next Grapple tag' })
 
 local actions = {
   format = {
@@ -112,6 +116,20 @@ local actions = {
       Snacks.bufdelete()
     end
   },
+
+  openterm = {
+    name = "Open Terminal",
+    run = function()
+      Snacks.terminal.open()
+    end
+  },
+  
+  toggleterm = {
+    name = "Toggle Terminal",
+    run = function()
+      Snacks.terminal.toggle()
+    end
+  },
 }
 
 local function show_actions()
@@ -130,3 +148,4 @@ local function show_actions()
 end
 
 vim.keymap.set('n', '<leader>pp', show_actions)
+

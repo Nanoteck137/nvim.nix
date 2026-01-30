@@ -1,24 +1,35 @@
 require("snacks").setup({
   lazygit = {},
   -- scroll = {};
-  explorer = {
-  },
-
+  explorer = {},
   indent = {},
   statuscolumn = {},
   zen = {},
-  dashboard = {
-    sections = {
-      { section = "header" },
-      { section = "keys",  gap = 1, padding = 1 },
-    },
-  },
+  input = {},
+  notifier = {},
 
   picker = {
     ui_select = true,
   },
 
-  input = {},
+  -- dashboard = {
+  --   sections = {
+  --     { section = "header" },
+  --     { section = "keys",  gap = 1, padding = 1 },
+  --   },
+  -- },
 
-  notifier = {},
+  terminal = {
+    win = {
+      keys = {
+        term_normal = {
+          '<Esc><Esc>',
+          '<C-\\><C-n>',
+          mode = "t",
+          expr = true,
+          desc = "Double escape to normal mode",
+        },
+      },
+    },
+  },
 })
