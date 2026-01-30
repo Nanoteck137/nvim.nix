@@ -1,5 +1,9 @@
 require("snacks").setup({
-  lazygit = {},
+  lazygit = {
+    win = {
+      height = 0.9,
+    },
+  },
   -- scroll = {};
   explorer = {},
   indent = {},
