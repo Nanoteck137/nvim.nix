@@ -21,6 +21,7 @@ require("snacks").setup({
 
   terminal = {
     win = {
+      height = 0.25,
       keys = {
         term_normal = {
           '<Esc><Esc>',
