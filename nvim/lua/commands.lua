@@ -1,3 +1,5 @@
+require("snacks")
+
 vim.api.nvim_create_user_command("Help", function()
   require("telescope.builtin").help_tags()
 end, { desc = "Open help search" })
