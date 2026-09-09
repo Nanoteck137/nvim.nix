@@ -5,6 +5,15 @@ vim.lsp.enable("gopls")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("svelte")
+vim.lsp.enable("tailwindcss")
+
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    go = { "gofmt" },
+    javascript = { "prettierd", "prettier", stop_after_first = true },
+  },
+})
 
 local set_keymap = function(bufnr)
   local nmap = function(keys, func, desc)
@@ -50,11 +59,25 @@ local set_keymap = function(bufnr)
   -- end, '[W]orkspace [L]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
+  -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+  --   require("conform").format({ bufnr = bufnr })
+  -- end, { desc = 'Format current buffer with LSP' })
+  --
+  vim.api.nvim_create_user_command("Format", function(args)
+    local range = nil
+    if args.count ~= -1 then
+      local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+      range = {
+        start = { args.line1, 0 },
+        ["end"] = { args.line2, end_line:len() },
+      }
+    end
+    require("conform").format({ async = true, lsp_format = "fallback", range = range })
+  end, { range = true })
 
-  nmap('<leader>,', vim.lsp.buf.format, 'Code Format')
+  nmap('<leader>,', function()
+    require("conform").format({ async = true, lsp_format = "fallback" })
+  end, 'Code Format')
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -72,7 +95,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
     local value = ev.data.params
-    .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+        .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
 
     if not client or type(value) ~= "table" then
       return

@@ -46,6 +46,7 @@
 
           vimPlugins.nvim-lspconfig
           vimPlugins.lazydev-nvim
+          vimPlugins.conform-nvim
 
           vimPlugins.lualine-nvim
           vimPlugins.which-key-nvim
