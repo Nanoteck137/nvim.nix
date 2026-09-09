@@ -5,6 +5,15 @@ vim.lsp.enable("gopls")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("svelte")
+
+vim.lsp.config("tailwindcss", {
+  settings = {
+    tailwindCSS = {
+      -- "tailwindCSS.classFunctions": ["tw", "clsx", "tw\\.[a-z-]+"]
+      classFunctions = { "tv", "clsx", "cn" }
+    }
+  }
+})
 vim.lsp.enable("tailwindcss")
 
 require("conform").setup({
