@@ -24,6 +24,7 @@ local filetype_opts = {
   typescript = tab2,
   typescriptreact = tab2,
   svelte = tab2,
+  css = tab2,
   nix = function(bufnr)
     extab2(bufnr)
     vim.bo[bufnr].commentstring = '# %s'
