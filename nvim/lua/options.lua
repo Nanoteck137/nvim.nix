@@ -44,6 +44,9 @@ vim.opt.termguicolors = true
 
 vim.opt.undofile = true
 
+-- vim.opt.list = true;
+-- vim.opt.listchars = "tab:> ";
+
 vim.diagnostic.config {
   underline = {
     severity = vim.diagnostic.severity.ERROR,

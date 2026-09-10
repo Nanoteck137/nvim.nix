@@ -1,11 +1,23 @@
+local function extab2(bufnr)
+  vim.bo[bufnr].tabstop = 2
+  vim.bo[bufnr].shiftwidth = 2
+  vim.bo[bufnr].expandtab = true
+end
+
 local function tab2(bufnr)
   vim.bo[bufnr].tabstop = 2
   vim.bo[bufnr].shiftwidth = 2
+  vim.bo[bufnr].expandtab = false
 end
 
+local function tab4(bufnr)
+  vim.bo[bufnr].tabstop = 4
+  vim.bo[bufnr].shiftwidth = 4
+  vim.bo[bufnr].expandtab = false
+end
 
 local filetype_opts = {
-  lua = tab2,
+  lua = extab2,
   html = tab2,
   javascript = tab2,
   javascriptreact = tab2,
@@ -13,18 +25,12 @@ local filetype_opts = {
   typescriptreact = tab2,
   svelte = tab2,
   nix = function(bufnr)
-    tab2(bufnr)
+    extab2(bufnr)
     vim.bo[bufnr].commentstring = '# %s'
   end,
-  go = function(bufnr)
-    vim.bo[bufnr].tabstop = 4
-    vim.bo[bufnr].shiftwidth = 4
-    vim.bo[bufnr].expandtab = false
-  end,
+  go = tab4,
   templ = function(bufnr)
-    vim.bo[bufnr].tabstop = 4
-    vim.bo[bufnr].shiftwidth = 4
-    vim.bo[bufnr].expandtab = false
+    tab4(bufnr)
     vim.bo[bufnr].commentstring = "// %s"
   end
 }
